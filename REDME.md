@@ -24,12 +24,15 @@ Create README
 - and copy from past projects
 
 Create basic database for users (inside project_name)
-- cd project_name
+- cd project_name ()
 - python manage.py migrate
 - python manage.py runserver (just as a test, then CTRL+C)
 
 Create superuser
 - python manage.py createsuperuser (administrator - administrator@localhost.com - com04***) http://127.0.0.1:8000/admin/
+
+Delete django key (if product has to go on production, otherwise if it runs locally it can stay there)
+
 
 Run server from cdm (inside project folder)
 - python manage.py runserver
@@ -300,6 +303,7 @@ git remote set-url origin https://github.com/USERNAME/REPOSITORY.git (change rep
 
 ## DJANGO REST FRAMEWORK
 - in the api app add models (one table one model) modifying mainProject/api/models.py
+- 
 
 
 
