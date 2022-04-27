@@ -6,8 +6,8 @@ from rest_framework.parsers import JSONParser
 
 from django.shortcuts import render
 
-from .serializer import UserSerializer, QuestionSerializer
-from .models import User, Question, Result
+from .serializer import UserSerializer, QuestionSerializer, VideoSerializer
+from .models import User, Question, Result, Video
 
 
 # Create your views here.
@@ -95,5 +95,44 @@ def questionUpdate(request, pk):
 @api_view(['DELETE'])
 def questionDelete(request, pk):
   w = Question.objects.get(id=pk)
+  w.delete()
+  return Response ("Deleted")
+
+
+
+
+
+###### QUESTIONS
+
+@api_view(['GET'])
+def videoList(request):
+  w = Video.objects.all()
+  serializer = VideoSerializer(w, many=True)  # many=true returns more objects
+  return Response (serializer.data)
+
+@api_view(['GET'])
+def videoDetail(request, pk):
+  w = Video.objects.get(id=pk)
+  serializer = VideoSerializer(w, many=False) # many=false returns one object
+  return Response (serializer.data)
+
+@api_view(['POST'])
+def videoCreate(request):
+  serializer = VideoSerializer(data=request.data)
+  if serializer.is_valid():
+    serializer.save()
+  return Response (serializer.errors)
+
+@api_view(['POST'])
+def videoUpdate(request, pk):
+  w = Video.objects.get(id=pk)
+  serializer = VideoSerializer(instance=w, data=request.data)
+  if serializer.is_valid():
+    serializer.save()
+  return Response (serializer.errors)
+
+@api_view(['DELETE'])
+def videoDelete(request, pk):
+  w = Video.objects.get(id=pk)
   w.delete()
   return Response ("Deleted")

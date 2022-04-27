@@ -7,8 +7,15 @@
 
 {
   "text": "This is a question",
-  "ansOne": "Ans 1",
-  "ansTwo": "Ans 2",
-  "ansThree": "Ans 3",
-  "correct": "Ans"
+  "answerOne": "Ans 1",
+  "answerTwo": "Ans 2",
+  "ansTanswerThreehree": "Ans 3",
+  "correct": "Ans 1",
+  "id_path": 1,
+  "id_video": 1
+}
+
+{
+  "name": "Vid",
+  "duration": 4000
 }

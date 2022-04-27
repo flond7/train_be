@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from api.models import User, Question, Result
+from api.models import User, Question, Result, Video
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -15,4 +15,9 @@ class QuestionSerializer(serializers.ModelSerializer):
 class ResultSerializer(serializers.ModelSerializer):
   class Meta:
     model = Result
+    fields = '__all__'
+
+class VideoSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = Video
     fields = '__all__'
