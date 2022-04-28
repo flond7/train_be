@@ -50,6 +50,8 @@ In mainProject/mainProject/urls.py
 - add include in from django.urls import path, include
 - add urls to urlpatterns in the form of path('api/', include('api.urls'))
 
+Register the models in the admin interface
+
 
 # Create api service
 
@@ -59,10 +61,29 @@ Create a model and migrate it so the table is created in the db
   to peak at the db see the section below
 - python manage.py migrate
 
-Creat a serializer
-- create serializer.py in api
+Create a serializer
+- in project/app-name (es: project_name/api) create a serializer.py file with
+  from rest_framework import serializers
+  from .models import woman, path
+
+  class womanSerializer(serializers.ModelSerializer):
+    class Meta:
+      model = woman
+      fields = '__all__'
+      depth = 1
 
 Create a view
+
+Add the tables to the admin view
+- in admin.py (es: project_name/api/admin.py) import the models and add to register
+  from .models import User, Railway, Question, Video, Result
+  admin.site.register(User)
+
+# Create relations among tables
+- first parameter is the name of the model that we want to link
+- second parameter is what happens on delete 
+--- models.foreignKey(..., on_delete=models.SET_NUL, null=True) so it will make the property null if the linked model gets deleted
+--- models.foreignKey(..., on_delete=models.ON_CASCADE) so it will delete the child if the parent gets deleted
 
 
 # CREATE AN API
@@ -123,16 +144,6 @@ https://realpython.com/django-migrations-a-primer/
   python manage.py migrate  
   *** REMEMBER: makemigration creates the file to create the tables, migrates actually creates them ***
 
-*** CREATE A SERIALIZER ***
-- in project/app-name create a serializer.py file with
-  from rest_framework import serializers
-  from .models import woman, path
-
-  class womanSerializer(serializers.ModelSerializer):
-    class Meta:
-      model = woman
-      fields = '__all__'
-      depth = 1
 
 
 

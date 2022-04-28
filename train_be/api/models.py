@@ -12,20 +12,6 @@ class User(models.Model):
     class Meta:
         ordering = ['id']
 
-class Question(models.Model):
-    id = models.AutoField(primary_key=True)
-    created = models.DateTimeField(auto_now_add=True)
-    text = models.TextField(default='')
-    answerOne = models.TextField(default='')
-    answerTwo = models.TextField(default='')
-    answerThree = models.TextField(default='')
-    correct = models.TextField(default='')
-    id_path = models.IntegerField()
-    id_video = models.IntegerField()
-
-    class Meta:
-        ordering = ['id']
-
 class Result(models.Model):
     id = models.AutoField(primary_key=True)
     correct = models.BooleanField()
@@ -46,6 +32,19 @@ class Video(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=150, blank=True, default='')
     duration = models.IntegerField()  
+
+    class Meta:
+        ordering = ['id']
+
+class Question(models.Model):
+    id = models.AutoField(primary_key=True)
+    created = models.DateTimeField(auto_now_add=True)
+    text = models.TextField(default='')
+    answerOne = models.TextField(default='')
+    answerTwo = models.TextField(default='')
+    answerThree = models.TextField(default='')
+    correct = models.TextField(default='')
+    id_video = models.ForeignKey(Video, on_delete=models.SET_NULL, null=True)
 
     class Meta:
         ordering = ['id']
