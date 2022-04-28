@@ -31,7 +31,9 @@ class Railway(models.Model):
 class Video(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=150, blank=True, default='')
+    url = models.CharField(max_length=150, blank=True, default='')
     duration = models.IntegerField()  
+    id_railway = models.ForeignKey(Railway, on_delete=models.CASCADE, related_name='related_vid')
 
     class Meta:
         ordering = ['id']
@@ -44,7 +46,7 @@ class Question(models.Model):
     answerTwo = models.TextField(default='')
     answerThree = models.TextField(default='')
     correct = models.TextField(default='')
-    id_video = models.ForeignKey(Video, on_delete=models.SET_NULL, null=True)
+    id_video = models.ForeignKey(Video, on_delete=models.CASCADE, related_name='related_quest')
 
     class Meta:
         ordering = ['id']

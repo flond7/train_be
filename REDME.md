@@ -85,8 +85,10 @@ Add the tables to the admin view
 - first parameter is the name of the model that we want to link
 - second parameter is what happens on delete 
 --- models.foreignKey(..., on_delete=models.SET_NUL, null=True) so it will make the property null if the linked model gets deleted
---- models.foreignKey(..., on_delete=models.ON_CASCADE) so it will delete the child if the parent gets deleted
+--- models.foreignKey(..., on_delete=models.CASCADE) so it will delete the child if the parent gets deleted
+- related_name is the parameter that allows us to query reverse in a one-to-many relationship (eg: I've got many articles by one author, article has a foreignKey to author, adding a related_name I'm able to query all the articles written by that author)
 
+https://thetldr.tech/how-to-query-reverse-foreign-key-relationship-in-django-queryset/
 
 # CREATE AN API
 - requires, model, serializer, view and a migration
