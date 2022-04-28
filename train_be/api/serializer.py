@@ -11,6 +11,7 @@ class QuestionSerializer(serializers.ModelSerializer):
   class Meta:
     model = Question
     fields = '__all__'  
+    depth = 1
 
 class ResultSerializer(serializers.ModelSerializer):
   class Meta:

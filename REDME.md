@@ -71,6 +71,8 @@ Create a serializer
       model = woman
       fields = '__all__'
       depth = 1
+- for linked (aka related) data, the detault option is to show just the id of the object, adding a depth allows to specify how many nested informations should be returned (eg: depth = 1  returns one nested object inside a key, depth 2 returns a nested object inside a nested object in a key...)
+
 
 Create a view
 
