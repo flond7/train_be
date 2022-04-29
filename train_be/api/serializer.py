@@ -21,4 +21,11 @@ class ResultSerializer(serializers.ModelSerializer):
 class VideoSerializer(serializers.ModelSerializer):
   class Meta:
     model = Video
-    fields = '__all__'
+    fields = '__all__' 
+    depth = 1
+
+class RailwaySerializer(serializers.ModelSerializer):
+  class Meta:
+    model = Question
+    fields = '__all__'  
+    depth = 2

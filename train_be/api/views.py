@@ -6,8 +6,8 @@ from rest_framework.parsers import JSONParser
 
 from django.shortcuts import render
 
-from .serializer import UserSerializer, QuestionSerializer, VideoSerializer
-from .models import User, Question, Result, Video
+from .serializer import UserSerializer, QuestionSerializer, VideoSerializer, RailwaySerializer
+from .models import Railway, User, Question, Result, Video
 
 
 # Create your views here.
@@ -102,7 +102,7 @@ def questionDelete(request, pk):
 
 
 
-###### QUESTIONS
+###### VIDEO
 
 @api_view(['GET'])
 def videoList(request):
@@ -115,6 +115,13 @@ def videoDetail(request, pk):
   w = Video.objects.get(id=pk)
   serializer = VideoSerializer(w, many=False) # many=false returns one object
   return Response (serializer.data)
+
+@api_view(['GET'])
+def videoQuestList(request, pk):
+  w = Video.objects.get(id=pk).hasQuest.all()
+  serializer = VideoSerializer(w, many=True) 
+  return Response (serializer.data)
+
 
 @api_view(['POST'])
 def videoCreate(request):
@@ -134,5 +141,50 @@ def videoUpdate(request, pk):
 @api_view(['DELETE'])
 def videoDelete(request, pk):
   w = Video.objects.get(id=pk)
+  w.delete()
+  return Response ("Deleted")
+
+
+
+
+
+###### RAILWAYS
+
+@api_view(['GET'])
+def railList(request):
+  w = Railway.objects.all()
+  serializer = RailwaySerializer(w, many=True)  # many=true returns more objects
+  return Response (serializer.data)
+
+@api_view(['GET'])
+def railDetail(request, pk):
+  w = Railway.objects.get(id=pk)
+  serializer = RailwaySerializer(w, many=False) # many=false returns one object
+  return Response (serializer.data)
+
+@api_view(['GET'])
+def railVideoList(request, pk):
+  w = Railway.objects.get(id=pk).hasVid.all()
+  serializer = RailwaySerializer(w, many=True) 
+  return Response (serializer.data)
+
+@api_view(['POST'])
+def railCreate(request):
+  serializer = RailwaySerializer(data=request.data)
+  if serializer.is_valid():
+    serializer.save()
+  return Response (serializer.errors)
+
+@api_view(['POST'])
+def railUpdate(request, pk):
+  w = Railway.objects.get(id=pk)
+  serializer = RailwaySerializer(instance=w, data=request.data)
+  if serializer.is_valid():
+    serializer.save()
+  return Response (serializer.errors)
+
+@api_view(['DELETE'])
+def railDelete(request, pk):
+  w = Railway.objects.get(id=pk)
   w.delete()
   return Response ("Deleted")

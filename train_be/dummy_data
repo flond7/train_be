@@ -11,11 +11,11 @@
   "answerTwo": "Ans 2",
   "ansTanswerThreehree": "Ans 3",
   "correct": "Ans 1",
-  "id_path": 1,
   "id_video": 1
 }
 
 {
   "name": "Vid",
+  "url": "",
   "duration": 4000
 }
