@@ -24,6 +24,7 @@ class Result(models.Model):
 class Railway(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=150, blank=True, default='')
+    description = models.CharField(max_length=650, blank=True, default='')
 
     class Meta:
         ordering = ['id']
