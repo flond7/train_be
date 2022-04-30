@@ -118,10 +118,11 @@ def videoDetail(request, pk):
 
 @api_view(['GET'])
 def videoQuestList(request, pk):
-  w = Video.objects.get(id=pk).hasQuest.all()
-  serializer = VideoSerializer(w, many=True) 
-  return Response (serializer.data)
-
+  queryset = Question.objects.select_related('video').filter(id=pk)
+  res = []
+  for q in queryset:
+    res.append({'id': q.id, 'text': q.text, 'answerOne': q.answerOne, 'answerTwo': q.answerTwo, 'answerThree': q.answerThree, 'correct': q.correct})
+  return JsonResponse(res, safe=False)
 
 @api_view(['POST'])
 def videoCreate(request):
@@ -165,7 +166,7 @@ def railDetail(request, pk):
 @api_view(['GET'])
 def railVideoList(request, pk):
   w = Railway.objects.get(id=pk).hasVid.all()
-  serializer = RailwaySerializer(w, many=True) 
+  serializer = RailwaySerializer(w, many=True)
   return Response (serializer.data)
 
 @api_view(['POST'])
