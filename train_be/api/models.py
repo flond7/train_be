@@ -16,7 +16,7 @@ class Result(models.Model):
     id = models.AutoField(primary_key=True)
     correct = models.BooleanField()
     id_question = models.IntegerField()
-    id_user = models.IntegerField()  
+    id_user = models.IntegerField()
 
     class Meta:
         ordering = ['id']
@@ -28,15 +28,21 @@ class Railway(models.Model):
     class Meta:
         ordering = ['id']
 
+    def __str__(self):
+        return self.name
+
 class Video(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=150, blank=True, default='')
     url = models.CharField(max_length=150, blank=True, default='')
-    duration = models.IntegerField()  
-    id_railway = models.ForeignKey(Railway, on_delete=models.CASCADE, related_name='hasVid')
+    duration = models.IntegerField(default=1000)
+    railway = models.ForeignKey(Railway, on_delete=models.CASCADE, related_name='videoOfRailway')
 
     class Meta:
         ordering = ['id']
+
+    def __str__(self):
+        return self.name
 
 class Question(models.Model):
     id = models.AutoField(primary_key=True)
@@ -46,7 +52,7 @@ class Question(models.Model):
     answerTwo = models.TextField(default='')
     answerThree = models.TextField(default='')
     correct = models.TextField(default='')
-    id_video = models.ForeignKey(Video, on_delete=models.CASCADE, related_name='hasQuest')
+    video = models.ForeignKey(Video, on_delete=models.CASCADE, related_name='questionOfVideo')
 
     class Meta:
         ordering = ['id']
