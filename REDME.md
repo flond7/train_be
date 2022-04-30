@@ -13,7 +13,7 @@ Install django and djangorest (pay attention to eventual proxy)
 - pip install djangorestframework
 
 Create the project
--  django-admin startproject project_name 
+-  django-admin startproject project_name
 
 Create GIT
 - git init
@@ -83,10 +83,13 @@ Add the tables to the admin view
 
 # Create relations among tables
 - first parameter is the name of the model that we want to link
-- second parameter is what happens on delete 
+- second parameter is what happens on delete
 --- models.foreignKey(..., on_delete=models.SET_NUL, null=True) so it will make the property null if the linked model gets deleted
 --- models.foreignKey(..., on_delete=models.CASCADE) so it will delete the child if the parent gets deleted
 - related_name is the parameter that allows us to query reverse in a one-to-many relationship (eg: I've got many articles by one author, article has a foreignKey to author, adding a related_name I'm able to query all the articles written by that author)
+
+https://betterprogramming.pub/django-select-related-and-prefetch-related-f23043fd635d
+
 
 https://thetldr.tech/how-to-query-reverse-foreign-key-relationship-in-django-queryset/
 
@@ -128,12 +131,12 @@ python manage.py makemigrations
 https://realpython.com/django-migrations-a-primer/
 
 ## DB MONGODB
-- Install djnongo using: 
+- Install djnongo using:
   pip install --proxy=http://proxy-bc-el.regione.fvg.it:801 djongo
 - install the right mongoengine
   pip install --proxy=http://proxy-bc-el.regione.fvg.it:801 mongoengine
 - install the right pymongo versione (eventually remove if its >4.0)
-  pip install --proxy=http://proxy-bc-el.regione.fvg.it:801 pymongo==3.12.1 
+  pip install --proxy=http://proxy-bc-el.regione.fvg.it:801 pymongo==3.12.1
 - in settings.py change the default DATABASE in
   DATABASES = {
       'default': {
@@ -145,7 +148,7 @@ https://realpython.com/django-migrations-a-primer/
   from djongo import models
 - makemigrations and then migrate to change to mongoDB:
   python manage.py makemigrations
-  python manage.py migrate  
+  python manage.py migrate
   *** REMEMBER: makemigration creates the file to create the tables, migrates actually creates them ***
 
 
@@ -158,21 +161,21 @@ https://realpython.com/django-migrations-a-primer/
 *** WITH ERROR NotImplementedError: Database objects do not implement truth value testing or bool(). Please compare with None instead: database is not None ***
 - pymongo version might be wrong, use 3.12.1
   pip uninstall pymongo
-  pip install --proxy=http://proxy-bc-el.regione.fvg.it:801 pymongo==3.12.1 
+  pip install --proxy=http://proxy-bc-el.regione.fvg.it:801 pymongo==3.12.1
 
 *** WITH ERROR cannot be of type "<class \'django.db.models.fields.BigAutoField\'>" ***
 - If it's a mega object with nested objects defined as models, remember to add abstract = True to the Meta class, wich means that djongo won't create a new "table" for the model just include the field where you embedded them
 - it's best to reset the DB and migrate again by
-  -- in migration folder KEEP __init__.py and delete all the other files 
+  -- in migration folder KEEP __init__.py and delete all the other files
   -- python manage.py makepigrations
   -- python manage.py migrate
 
 
 ## CONSTANTS FILE
-To use constants for models, 
+To use constants for models,
 - Create a separate file (es modelsConstat)
 - Import it on the main models in the form of: from my-app-name.modelConstants import *
-  
+
 
 reset DB
 https://dev.to/rawas_aditya/how-to-reset-django-migrations-169o
@@ -211,15 +214,15 @@ def pageOneFunction(request):
 
 
 ## GITHUB
-git init 
-git add README.md 
-git config --global http.proxy http[s]://username:password@proxyipaddress:portnumber 
-git config --global user.name "NICK" 
-git config --global user.mail mail@gmail.com 
-git config --global user.password ********* 
-git commit -m "first commit" 
-git branch -M main 
-git remote add origin https://github.com/flond7/angular-startingPoint.git 
+git init
+git add README.md
+git config --global http.proxy http[s]://username:password@proxyipaddress:portnumber
+git config --global user.name "NICK"
+git config --global user.mail mail@gmail.com
+git config --global user.password *********
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/flond7/angular-startingPoint.git
 git push -u origin main
 
 git branch (check branch name)
@@ -232,7 +235,7 @@ git remote set-url origin https://github.com/USERNAME/REPOSITORY.git (change rep
 
 ## DJANGO REST FRAMEWORK
 - in the api app add models (one table one model) modifying mainProject/api/models.py
-- 
+-
 
 
 
@@ -244,21 +247,21 @@ https://www.bezkoder.com/django-angular-crud-rest-framework/
 *** WITH ERROR NotImplementedError: Database objects do not implement truth value testing or bool(). Please compare with None instead: database is not None ***
 - pymongo version might be wrong, use 3.12.1
   pip uninstall pymongo
-  pip install --proxy=http://proxy-bc-el.regione.fvg.it:801 pymongo==3.12.1 
+  pip install --proxy=http://proxy-bc-el.regione.fvg.it:801 pymongo==3.12.1
 
 *** WITH ERROR cannot be of type "<class \'django.db.models.fields.BigAutoField\'>" ***
 - If it's a mega object with nested objects defined as models, remember to add abstract = True to the Meta class, wich means that djongo won't create a new "table" for the model just include the field where you embedded them
 - it's best to reset the DB and migrate again by
-  -- in migration folder KEEP __init__.py and delete all the other files 
+  -- in migration folder KEEP __init__.py and delete all the other files
   -- python manage.py makepigrations
   -- python manage.py migrate
 
 
 ## MODELS SPECIFICS
-To use constants for models, 
+To use constants for models,
 - Create a separate file (es modelsConstat)
 - Import it on the main models in the form of: from my-app-name.modelConstants import *
-  
+
 
 reset DB
 https://dev.to/rawas_aditya/how-to-reset-django-migrations-169o
@@ -297,15 +300,15 @@ def pageOneFunction(request):
 
 
 ## GITHUB
-git init 
-git add README.md 
-git config --global http.proxy http[s]://username:password@proxyipaddress:portnumber 
-git config --global user.name "NICK" 
-git config --global user.mail mail@gmail.com 
-git config --global user.password ********* 
-git commit -m "first commit" 
-git branch -M main 
-git remote add origin https://github.com/flond7/angular-startingPoint.git 
+git init
+git add README.md
+git config --global http.proxy http[s]://username:password@proxyipaddress:portnumber
+git config --global user.name "NICK"
+git config --global user.mail mail@gmail.com
+git config --global user.password *********
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/flond7/angular-startingPoint.git
 git push -u origin main
 
 git branch (check branch name)
@@ -318,7 +321,7 @@ git remote set-url origin https://github.com/USERNAME/REPOSITORY.git (change rep
 
 ## DJANGO REST FRAMEWORK
 - in the api app add models (one table one model) modifying mainProject/api/models.py
-- 
+-
 
 
 
@@ -326,5 +329,3 @@ git remote set-url origin https://github.com/USERNAME/REPOSITORY.git (change rep
 
 ## REST
 https://www.bezkoder.com/django-angular-crud-rest-framework/
-
- 
