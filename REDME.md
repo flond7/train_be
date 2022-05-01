@@ -12,6 +12,19 @@ Install django and djangorest (pay attention to eventual proxy)
 - pip install --proxy=http://proxy-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX:801 django
 - pip install djangorestframework
 
+Install cors
+- pip install django-cors-headers
+- in settings.py add corsheaders to INSTALLED APPS = [ ..., 'corsheaders']
+- in settings.py add to MIDDLEWARE = [ ..., 'corsheaders.middleware.CorsMiddleware']
+- in settings.py add
+
+  ALLOWED_HOSTS=['http://localhost:4200']
+  CORS_ORIGIN_ALLOW_ALL = False
+  CORS_ORIGIN_WHITELIST = (
+    'http://localhost:4200',
+  )
+
+
 Create the project
 -  django-admin startproject project_name
 
@@ -169,6 +182,8 @@ https://realpython.com/django-migrations-a-primer/
   -- in migration folder KEEP __init__.py and delete all the other files
   -- python manage.py makepigrations
   -- python manage.py migrate
+
+*** WITH CORS ERROR - Access to XMLHttpRequest at 'url’' from origin  has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource ***
 
 
 ## CONSTANTS FILE
