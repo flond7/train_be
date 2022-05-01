@@ -13,16 +13,13 @@ Install django and djangorest (pay attention to eventual proxy)
 - pip install djangorestframework
 
 Install cors
+How CORS works https://www.stackhawk.com/blog/angular-cors-guide-examples-and-how-to-enable-it/ and https://www.stackhawk.com/blog/what-is-cors/
 - pip install django-cors-headers
 - in settings.py add corsheaders to INSTALLED APPS = [ ..., 'corsheaders']
 - in settings.py add to MIDDLEWARE = [ ..., 'corsheaders.middleware.CorsMiddleware']
 - in settings.py add
-
-  ALLOWED_HOSTS=['http://localhost:4200']
-  CORS_ORIGIN_ALLOW_ALL = False
-  CORS_ORIGIN_WHITELIST = (
-    'http://localhost:4200',
-  )
+  CORS_ALLOWED_ORIGINS = ['http://localhost:4200']
+  CORS_ALLOW_ALL_ORIGINS = False
 
 
 Create the project
