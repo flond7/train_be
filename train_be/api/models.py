@@ -1,7 +1,9 @@
 from django.db import models
+from django.contrib.auth.models import User 
+#from django.conf import settings
 
 # Create your models here.
-class User(models.Model):
+""" class User(models.Model):
     id = models.AutoField(primary_key=True)
     created = models.DateTimeField(auto_now_add=True)
     name = models.CharField(max_length=50, blank=True, default='')
@@ -10,16 +12,7 @@ class User(models.Model):
     pw = models.CharField(max_length=50)
 
     class Meta:
-        ordering = ['id']
-
-class Result(models.Model):
-    id = models.AutoField(primary_key=True)
-    correct = models.BooleanField()
-    id_question = models.IntegerField()
-    id_user = models.IntegerField()
-
-    class Meta:
-        ordering = ['id']
+        ordering = ['id'] """
 
 class Railway(models.Model):
     id = models.AutoField(primary_key=True)
@@ -55,6 +48,15 @@ class Question(models.Model):
     answerThree = models.TextField(default='')
     correct = models.TextField(default='')
     video = models.ForeignKey(Video, on_delete=models.CASCADE, related_name='questionOfVideo')
+
+    class Meta:
+        ordering = ['id']
+
+class Result(models.Model):
+    id = models.AutoField(primary_key=True)
+    correct = models.BooleanField(default="False")
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='ResultOfQuestions')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='ResultOfUser')
 
     class Meta:
         ordering = ['id']
