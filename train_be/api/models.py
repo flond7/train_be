@@ -54,7 +54,7 @@ class Question(models.Model):
 
 class Result(models.Model):
     id = models.AutoField(primary_key=True)
-    correct = models.BooleanField(default="False")
+    correct = models.BooleanField()
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='ResultOfQuestions')
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='ResultOfUser')
 
