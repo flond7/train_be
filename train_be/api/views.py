@@ -147,8 +147,6 @@ def videoDelete(request, pk):
 
 
 
-
-
 ###### RAILWAYS
 
 @api_view(['GET'])
@@ -189,3 +187,39 @@ def railDelete(request, pk):
   w = Railway.objects.get(id=pk)
   w.delete()
   return Response ("Deleted")
+
+
+###### USER
+
+@api_view(['GET'])
+def userDetail(request, pk):
+  w = User.objects.get(id=pk)
+  serializer = UserSerializer(w, many=False) # many=false returns one object
+  return Response (serializer.data)
+
+@api_view(['GET'])
+def userResults(request, pk):
+  queryset = Result.objects.prefetch_related('user').filter(video=pk)
+  res = []
+  for q in queryset:
+    res.append({'id': q.id, 'correct': q.correct, 'question-id':q.question.id,'question-text': q.question.text,'user-id': q.user.id, 'correct': q.correct})
+  return JsonResponse(res, safe=False)
+
+  w = User.objects.get(id=pk).hasVid.all()
+  serializer = UserSerializer(w, many=True)
+  return Response (serializer.data)
+
+@api_view(['POST'])
+def userCreate(request):
+  serializer = UserSerializer(data=request.data)
+  if serializer.is_valid():
+    serializer.save()
+  return Response (serializer.errors)
+
+@api_view(['POST'])
+def userUpdate(request, pk):
+  w = User.objects.get(id=pk)
+  serializer = UserSerializer(instance=w, data=request.data)
+  if serializer.is_valid():
+    serializer.save()
+  return Response (serializer.errors)
