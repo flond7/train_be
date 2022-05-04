@@ -118,10 +118,10 @@ def videoDetail(request, pk):
 
 @api_view(['GET'])
 def videoQuestList(request, pk):
-  queryset = Question.objects.select_related('video').filter(id=pk)
+  queryset = Question.objects.prefetch_related('video').filter(video=pk)
   res = []
   for q in queryset:
-    res.append({'id': q.id, 'text': q.text, 'answerOne': q.answerOne, 'answerTwo': q.answerTwo, 'answerThree': q.answerThree, 'correct': q.correct})
+    res.append({'id': q.id, 'video-id': q.video.id,'text': q.text, 'answerOne': q.answerOne, 'answerTwo': q.answerTwo, 'answerThree': q.answerThree, 'correct': q.correct})
   return JsonResponse(res, safe=False)
 
 @api_view(['POST'])
