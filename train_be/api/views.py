@@ -205,15 +205,15 @@ def userResults(request, pk):
   res = []
   for q in queryset:
     res.append({
-      'result-id': q.id, 
-      'result-correct': q.correct,  
-      'question-id':q.question.id,
-      'question-text': q.question.text, 
-      'video-id': q.question.video.id,
-      'video-name': q.question.video.name,
-      'railway-id': q.question.video.railway.id,
-      'railway-name': q.question.video.railway.name,
-      'user-id': q.user.id})
+      'resultId': q.id, 
+      'resultCorrect': q.correct,  
+      'questionId':q.question.id,
+      'questionText': q.question.text, 
+      'videoId': q.question.video.id,
+      'videoName': q.question.video.name,
+      'railwayId': q.question.video.railway.id,
+      'railwayName': q.question.video.railway.name,
+      'userId': q.user.id})
   return JsonResponse(res, safe=False)
 
 
