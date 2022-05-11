@@ -92,6 +92,9 @@ Add the tables to the admin view
   admin.site.register(User)
 
 # Create an authentication tool - https://www.jetbrains.com/pycharm/guide/tutorials/django-aws/rest-api-jwt/
+
+https://www.youtube.com/watch?v=PUzgZrS_piQ
+
 - pip install djangorestframework-simplejwt
 - in setting.py add
 REST_FRAMEWORK = {
