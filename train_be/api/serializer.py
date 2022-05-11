@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from api.models import User, Question, Result, Video
+from api.models import User, Question, Railway, Result, Video
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -9,7 +9,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 class RailwaySerializer(serializers.ModelSerializer):
   class Meta:
-    model = Question
+    model = Railway
     fields = '__all__'
     depth = 2
 
