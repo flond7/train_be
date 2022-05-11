@@ -1,3 +1,7 @@
 django
 djangorest
 django-cors-headers
+
+
+
+https://hannylicious.com/blog/python-requirements-files/
