@@ -121,7 +121,7 @@ def videoQuestList(request, pk):
   queryset = Question.objects.prefetch_related('video').filter(video=pk)
   res = []
   for q in queryset:
-    res.append({'id': q.id, 'video-id': q.video.id,'text': q.text, 'answerOne': q.answerOne, 'answerTwo': q.answerTwo, 'answerThree': q.answerThree, 'correct': q.correct})
+    res.append({'question-id': q.id, 'video-id': q.video.id,'text': q.text, 'answerOne': q.answerOne, 'answerTwo': q.answerTwo, 'answerThree': q.answerThree, 'correct': q.correct})
   return JsonResponse(res, safe=False)
 
 @api_view(['POST'])
@@ -163,9 +163,11 @@ def railDetail(request, pk):
 
 @api_view(['GET'])
 def railVideoList(request, pk):
-  w = Railway.objects.get(id=pk).hasVid.all()
-  serializer = RailwaySerializer(w, many=True)
-  return Response (serializer.data)
+  queryset = Video.objects.prefetch_related('railway').filter(railway=pk)
+  res = []
+  for q in queryset:
+    res.append({'railway-id': q.railway.id, 'video-id': q.id, 'description': q.description, 'url': q.url})
+  return JsonResponse(res, safe=False)
 
 @api_view(['POST'])
 def railCreate(request):
