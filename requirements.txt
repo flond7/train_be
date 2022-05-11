@@ -3,3 +3,7 @@ djangorest
 django-cors-headers
 djangorestframework-simplejwt
 django-filter==2.4.0
+
+
+
+https://hannylicious.com/blog/python-requirements-files/
