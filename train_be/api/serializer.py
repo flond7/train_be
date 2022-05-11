@@ -20,8 +20,6 @@ class VideoSerializer(serializers.ModelSerializer):
     depth = 1
 
 class QuestionSerializer(serializers.ModelSerializer):
-  id_video = VideoSerializer()
-
   class Meta:
     model = Question
     fields = '__all__'
