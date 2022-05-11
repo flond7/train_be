@@ -1,10 +1,12 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.parsers import JSONParser
 
 from django.shortcuts import render
+
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
 from .serializer import UserSerializer, QuestionSerializer, VideoSerializer, RailwaySerializer
 from .models import Railway, User, Question, Result, Video
@@ -192,12 +194,14 @@ def railDelete(request, pk):
 ###### USER
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def userDetail(request, pk):
   w = User.objects.get(id=pk)
   serializer = UserSerializer(w, many=False) # many=false returns one object
   return Response (serializer.data)
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def userResults(request, pk):
   queryset = Result.objects.prefetch_related('user').filter(video=pk)
   res = []
@@ -205,11 +209,8 @@ def userResults(request, pk):
     res.append({'id': q.id, 'correct': q.correct, 'question-id':q.question.id,'question-text': q.question.text,'user-id': q.user.id, 'correct': q.correct})
   return JsonResponse(res, safe=False)
 
-  w = User.objects.get(id=pk).hasVid.all()
-  serializer = UserSerializer(w, many=True)
-  return Response (serializer.data)
-
 @api_view(['POST'])
+@permission_classes([IsAdminUser])
 def userCreate(request):
   serializer = UserSerializer(data=request.data)
   if serializer.is_valid():

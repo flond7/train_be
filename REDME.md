@@ -91,6 +91,34 @@ Add the tables to the admin view
   from .models import User, Railway, Question, Video, Result
   admin.site.register(User)
 
+# Create an authentication tool - https://www.jetbrains.com/pycharm/guide/tutorials/django-aws/rest-api-jwt/
+- pip install djangorestframework-simplejwt
+- in setting.py add
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend'
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+}
+- in urls.py import
+  from rest_framework_simplejwt.views import (TokenObtainPairView, TokenRefreshView,)
+- in urls.py add to urlpatterns
+  path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+  path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh')
+- in urls.py in urlspatterns add wich adds the prefined user urls (es accounts/login/[name='login'])
+  path('accounts/', include('django.contrib.auth.urls')),
+  https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Authentication
+
+- in api/views.py import
+from rest_framework.permissions import IsAuthenticated
+- in api/views.py import
+from rest_framework.decorators import api_view, permission_classes
+- in api/views.py add
+  @api_view(['GET'])
+  @permission_classes([IsAuthenticated])
+
 # Create relations among tables
 - first parameter is the name of the model that we want to link
 - second parameter is what happens on delete
