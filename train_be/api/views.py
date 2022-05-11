@@ -123,7 +123,7 @@ def videoQuestList(request, pk):
   queryset = Question.objects.prefetch_related('video').filter(video=pk)
   res = []
   for q in queryset:
-    res.append({'id': q.id, 'video-id': q.video.id,'text': q.text, 'answerOne': q.answerOne, 'answerTwo': q.answerTwo, 'answerThree': q.answerThree, 'correct': q.correct})
+    res.append({'question-id': q.id, 'video-id': q.video.id,'text': q.text, 'answerOne': q.answerOne, 'answerTwo': q.answerTwo, 'answerThree': q.answerThree, 'correct': q.correct})
   return JsonResponse(res, safe=False)
 
 @api_view(['POST'])
@@ -155,7 +155,7 @@ def videoDelete(request, pk):
 def railList(request):
   w = Railway.objects.all()
   serializer = RailwaySerializer(w, many=True)  # many=true returns more objects
-  return Response (serializer.data)
+  return JsonResponse(serializer.data, safe=False)
 
 @api_view(['GET'])
 def railDetail(request, pk):
@@ -165,9 +165,11 @@ def railDetail(request, pk):
 
 @api_view(['GET'])
 def railVideoList(request, pk):
-  w = Railway.objects.get(id=pk).hasVid.all()
-  serializer = RailwaySerializer(w, many=True)
-  return Response (serializer.data)
+  queryset = Video.objects.prefetch_related('railway').filter(railway=pk)
+  res = []
+  for q in queryset:
+    res.append({'railway-id': q.railway.id, 'video-id': q.id, 'description': q.description, 'url': q.url})
+  return JsonResponse(res, safe=False)
 
 @api_view(['POST'])
 def railCreate(request):
@@ -203,10 +205,19 @@ def userDetail(request, pk):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def userResults(request, pk):
-  queryset = Result.objects.prefetch_related('user').filter(video=pk)
+  queryset = Result.objects.prefetch_related('user').filter(user=pk)
   res = []
   for q in queryset:
-    res.append({'id': q.id, 'correct': q.correct, 'question-id':q.question.id,'question-text': q.question.text,'user-id': q.user.id, 'correct': q.correct})
+    res.append({
+      'resultId': q.id,
+      'resultCorrect': q.correct,
+      'questionId':q.question.id,
+      'questionText': q.question.text,
+      'videoId': q.question.video.id,
+      'videoName': q.question.video.name,
+      'railwayId': q.question.video.railway.id,
+      'railwayName': q.question.video.railway.name,
+      'userId': q.user.id})
   return JsonResponse(res, safe=False)
 
 @api_view(['POST'])
