@@ -201,15 +201,12 @@ def userDetail(request, pk):
 
 @api_view(['GET'])
 def userResults(request, pk):
-  queryset = Result.objects.prefetch_related('user').filter(video=pk)
+  queryset = Result.objects.prefetch_related('user').filter(user=pk)
   res = []
   for q in queryset:
     res.append({'id': q.id, 'correct': q.correct, 'question-id':q.question.id,'question-text': q.question.text,'user-id': q.user.id, 'correct': q.correct})
   return JsonResponse(res, safe=False)
 
-  w = User.objects.get(id=pk).hasVid.all()
-  serializer = UserSerializer(w, many=True)
-  return Response (serializer.data)
 
 @api_view(['POST'])
 def userCreate(request):
