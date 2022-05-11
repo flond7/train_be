@@ -153,7 +153,7 @@ def videoDelete(request, pk):
 def railList(request):
   w = Railway.objects.all()
   serializer = RailwaySerializer(w, many=True)  # many=true returns more objects
-  return Response (serializer.data)
+  return JsonResponse(serializer.data, safe=False)
 
 @api_view(['GET'])
 def railDetail(request, pk):
