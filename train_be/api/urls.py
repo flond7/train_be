@@ -1,6 +1,15 @@
 from django.urls import path
 from . import views
+
 urlpatterns = [
+  path('video-detail/<int:pk>/', views.videoDetail.as_view(), name="video-detail"),
+  path('video-create/', views.videoCreate.as_view(), name="video-create"),
+  path('video-list/', views.videoList.as_view(), name="video-list"),
+  path('video-question-list/', views.videoQuestionlist.as_view(), name="video-question-list"),
+
+]
+
+""" urlpatterns = [
   path('user-list', views.userList, name="user-list"),
   path('user-detail/<str:pk>', views.userDetail, name="user-detail"),
   path('user-create', views.userCreate, name="user-create"),
@@ -11,7 +20,7 @@ urlpatterns = [
   path('question-create', views.questionCreate, name="question-create"),
   path('question-update/<str:pk>', views.questionUpdate, name="question-update"),
   path('question-delete/<str:pk>', views.questionDelete, name="question-delete"),
-  path('video-list', views.videoList, name="video-list"),
+  path('video-list', views.videoList.as_view(), name="video-list"),
   path('video-detail/<str:pk>', views.videoDetail, name="video-detail"),
   path('video-question-list/<str:pk>', views.videoQuestList, name="video-question-list"),
   path('video-create', views.videoCreate, name="video-create"),
@@ -27,4 +36,4 @@ urlpatterns = [
   path('user-create', views.userCreate, name="user-create"),
   path('user-update/<str:pk>', views.userUpdate, name="user-update"),
   path('user-delete/<str:pk>', views.userDelete, name="user-delete"),
-]
+] """
