@@ -1,6 +1,8 @@
 from rest_framework import generics
 from rest_framework.decorators import api_view, permission_classes
 from django.http import JsonResponse
+from rest_framework.permissions import BasePermission, IsAuthenticated, SAFE_METHODS
+
 
 from .serializer import UserSerializer, QuestionSerializer, ResultSerializer, VideoSerializer, RailwaySerializer
 from .models import User, Question, Result, Video, Railway
@@ -23,10 +25,13 @@ class questionDetail(generics.RetrieveAPIView):
 class videoDetail(generics.RetrieveAPIView):
   queryset = Video.objects.all()
   serializer_class = VideoSerializer
+  permission_classes = [IsAuthenticated]
 
 class videoList(generics.ListAPIView):
   queryset = Video.objects.all()
   serializer_class = VideoSerializer
+  """ authentication_classes = [authentication.SessionAuthentication] """
+  permission_classes = [IsAuthenticated]
 
 @api_view(['GET'])
 def videoQuestionList(request, pk):
@@ -43,10 +48,12 @@ def videoQuestionList(request, pk):
 class railwayList(generics.ListAPIView):
   queryset = Railway.objects.all()
   serializer_class = RailwaySerializer
+  permission_classes = [IsAuthenticated]
 
 class railwayDetail(generics.RetrieveAPIView):
   queryset = Railway.objects.all()
   serializer_class = RailwaySerializer
+  permission_classes = [IsAuthenticated]
 
 @api_view(['GET'])
 def railwayVideoList(request, pk):
@@ -63,6 +70,7 @@ def railwayVideoList(request, pk):
 class userDetail(generics.RetrieveAPIView):
   queryset = User.objects.all()
   serializer_class = UserSerializer
+  
 
 class userUpdate(generics.UpdateAPIView):
   queryset = User.objects.all()
