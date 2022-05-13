@@ -1,0 +1,26 @@
+[
+{
+    "model": "api.railway",
+    "pk": 1,
+    "fields": {
+        "name": "TAR-MES",
+        "description": "Tarvisio - Mestre"
+    }
+},
+{
+    "model": "api.railway",
+    "pk": 2,
+    "fields": {
+        "name": "MES-VEN",
+        "description": "Mestre - Venezia"
+    }
+},
+{
+    "model": "api.railway",
+    "pk": 3,
+    "fields": {
+        "name": "VEN-ROM",
+        "description": "Venezia - Roma"
+    }
+}
+]

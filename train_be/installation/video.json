@@ -1,0 +1,46 @@
+[
+{
+    "model": "api.video",
+    "pk": 1,
+    "fields": {
+        "name": "Video 01",
+        "url": "https://www.youtube.com/embed/kVpv8-5XWOI",
+        "description": "This is the description for the video 01",
+        "duration": 1000,
+        "railway": 1
+    }
+},
+{
+    "model": "api.video",
+    "pk": 2,
+    "fields": {
+        "name": "Video 02",
+        "url": "qwe",
+        "description": "",
+        "duration": 2000,
+        "railway": 1
+    }
+},
+{
+    "model": "api.video",
+    "pk": 3,
+    "fields": {
+        "name": "Video 03",
+        "url": "",
+        "description": "",
+        "duration": 1500,
+        "railway": 3
+    }
+},
+{
+    "model": "api.video",
+    "pk": 4,
+    "fields": {
+        "name": "Video 04",
+        "url": "",
+        "description": "",
+        "duration": 2000,
+        "railway": 3
+    }
+}
+]
