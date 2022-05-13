@@ -1,7 +1,8 @@
-from rest_framework import generics
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework import generics, authentication, permissions
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from django.http import JsonResponse
 from rest_framework.permissions import BasePermission, IsAuthenticated, SAFE_METHODS
+from rest_framework.authentication import SessionAuthentication
 
 
 from .serializer import UserSerializer, QuestionSerializer, ResultSerializer, VideoSerializer, RailwaySerializer
@@ -25,15 +26,18 @@ class questionDetail(generics.RetrieveAPIView):
 class videoDetail(generics.RetrieveAPIView):
   queryset = Video.objects.all()
   serializer_class = VideoSerializer
-  permission_classes = [IsAuthenticated]
+  authentication_classes = [authentication.SessionAuthentication]
+  permission_classes = [permissions.IsAuthenticated]
 
 class videoList(generics.ListAPIView):
   queryset = Video.objects.all()
   serializer_class = VideoSerializer
-  """ authentication_classes = [authentication.SessionAuthentication] """
-  permission_classes = [IsAuthenticated]
+  authentication_classes = [authentication.SessionAuthentication]
+  permission_classes = [permissions.IsAuthenticated]
 
 @api_view(['GET'])
+@authentication_classes([SessionAuthentication])
+@permission_classes([IsAuthenticated])
 def videoQuestionList(request, pk):
   queryset = Question.objects.prefetch_related('video').filter(video=pk)
   res = []
@@ -48,12 +52,12 @@ def videoQuestionList(request, pk):
 class railwayList(generics.ListAPIView):
   queryset = Railway.objects.all()
   serializer_class = RailwaySerializer
-  permission_classes = [IsAuthenticated]
+  permission_classes = [permissions.IsAuthenticated]
 
 class railwayDetail(generics.RetrieveAPIView):
   queryset = Railway.objects.all()
   serializer_class = RailwaySerializer
-  permission_classes = [IsAuthenticated]
+  permission_classes = [permissions.IsAuthenticated]
 
 @api_view(['GET'])
 def railwayVideoList(request, pk):
