@@ -1,7 +1,7 @@
 from urllib import request
 from rest_framework import permissions
 
-class isStudentPermission(permissions.DjangoModelPermissions):
+class notDeletingPermission(permissions.DjangoModelPermissions):
   # only if user is not active return False and deny access
   # otherwise allow it
 
@@ -12,7 +12,7 @@ class isStudentPermission(permissions.DjangoModelPermissions):
         'POST': ['%(app_label)s.add_%(model_name)s'],
         'PUT': ['%(app_label)s.change_%(model_name)s'],
         'PATCH': ['%(app_label)s.change_%(model_name)s'],
-        'DELETE': ['%(app_label)s.delete_%(model_name)s'],
+        'DELETE': [],
   }
 
   def has_permission(self, request, view):
