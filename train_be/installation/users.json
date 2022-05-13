@@ -1,0 +1,18 @@
+[
+  {
+    "model": "User",
+    "pk": 3,
+    "fields": {
+      "name": "foo",
+      "password": "passw0rd"
+    }
+  },
+  {
+    "model": "User",
+    "pk": 3,
+    "fields": {
+      "name": "foo2",
+      "password": "passw0rd"
+    }
+  }
+]
