@@ -154,7 +154,31 @@ https://thetldr.tech/how-to-query-reverse-foreign-key-relationship-in-django-que
 python manage.py makemigrations
 
 
-
+# USER AUTHENTICATION AND PERMISSIONS https://spapas.github.io/2021/08/25/django-token-rest-auth/
+- install dj-rest-auth
+  pip install dj-rest-auth
+- in the main urls.py add  (if you want to see the specific urls go to the generic url 127.0.0.1:8000 and move from there)
+  path('auth/', include('dj_rest_auth.urls')),
+- in settings.py add
+  INSTALLED_APPS = [
+    . . .
+    'rest_framework',
+    'rest_framework.authtoken',
+    'dj_rest_auth',
+    . . . 
+  ]
+- in the specific views.py (api/views.py)
+  from rest_framework.authentication import SessionAuthentication, TokenAuthentication
+  from rest_framework.permissions import IsAuthenticated
+- in views.py add in each view the requirement for authentication and permissions
+  class TestAuthView(APIView):
+    authentication_classes = (authentication.TokenAuthentication,)
+    permission_classes = (permissions.IsAuthenticated,)
+## login
+- from the front end call http://127.0.0.1:8000/auth/login/ passing as data a JSON as {"username": "foo", "password": "myPassword"}. It will return a JSON as { "key": "xxxx"}
+## access protected views
+- from the front end call the view url and pass the key in the header as 
+  Authorization:Token xxxxx
 
 
 ## ADD A NEW FILED TO DB

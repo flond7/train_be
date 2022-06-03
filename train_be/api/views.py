@@ -1,13 +1,28 @@
 from rest_framework import generics, authentication, permissions
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from django.http import JsonResponse
-from rest_framework.permissions import BasePermission, IsAuthenticated, SAFE_METHODS
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import SessionAuthentication, TokenAuthentication
+#from rest_framework_simplejwt.authentication import JWTAuthentication, JWTTokenUserAuthentication
+#from rest_framework_simplejwt.views import TokenObtainPairView
 
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
 from .serializer import UserSerializer, QuestionSerializer, ResultSerializer, VideoSerializer, RailwaySerializer
 from .models import User, Question, Result, Video, Railway
 
+
+
+class TestAuthView(APIView):
+    authentication_classes = (authentication.TokenAuthentication,)
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get(self, request, format=None):
+        return Response("Hello {0}!".format(request.user))
+
+    def post(self, request, format=None):
+        return Response("Hello {0}! Posted!".format(request.user))
 
 
 
@@ -49,7 +64,7 @@ def videoQuestionList(request, pk):
 
 ###### RAILWAYS
 
-class railwayList(generics.ListAPIView):
+class railwayList(generics.GenericAPIView):
   queryset = Railway.objects.all()
   serializer_class = RailwaySerializer
   authentication_classes = [TokenAuthentication]
