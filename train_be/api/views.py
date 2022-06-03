@@ -1,4 +1,4 @@
-from rest_framework import generics, authentication, permissions
+from rest_framework import generics, mixins, authentication, permissions
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from django.http import JsonResponse
 from rest_framework.permissions import IsAuthenticated
@@ -24,6 +24,14 @@ class TestAuthView(APIView):
     def post(self, request, format=None):
         return Response("Hello {0}! Posted!".format(request.user))
 
+class railwayList(mixins.ListModelMixin, generics.GenericAPIView):
+  authentication_classes = (authentication.TokenAuthentication,)
+  permission_classes = (permissions.IsAuthenticated,)
+  queryset = Railway.objects.all()
+  serializer_class = RailwaySerializer
+
+  def get(self, request, *args, **kwargs):
+    return self.list(request, *args, **kwargs)
 
 
 class questionList(generics.ListAPIView):
@@ -61,15 +69,24 @@ def videoQuestionList(request, pk):
   return JsonResponse(res, safe=False)
 
 
-
 ###### RAILWAYS
+''' class railwayList(APIView):
+  authentication_classes = (authentication.TokenAuthentication,)
+  permission_classes = (permissions.IsAuthenticated,)
 
+  queryset = Railway.objects.all()
+  serializer_class = RailwaySerializer
+
+  def get(self, request, format=None):
+    return Response("Hello {0}!".format(request.user))
+ '''
+'''
 class railwayList(generics.GenericAPIView):
   queryset = Railway.objects.all()
   serializer_class = RailwaySerializer
   authentication_classes = [TokenAuthentication]
   permission_classes = [permissions.IsAuthenticated]
-
+ '''
 class railwayDetail(generics.RetrieveAPIView):
   queryset = Railway.objects.all()
   serializer_class = RailwaySerializer
@@ -90,7 +107,7 @@ def railwayVideoList(request, pk):
 class userDetail(generics.RetrieveAPIView):
   queryset = User.objects.all()
   serializer_class = UserSerializer
-  
+
 
 class userUpdate(generics.UpdateAPIView):
   queryset = User.objects.all()
