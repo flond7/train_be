@@ -33,6 +33,38 @@ class railwayList(mixins.ListModelMixin, generics.GenericAPIView):
   def get(self, request, *args, **kwargs):
     return self.list(request, *args, **kwargs)
 
+class railwayDetail(mixins.RetrieveModelMixin, generics.GenericAPIView):
+  authentication_classes = (authentication.TokenAuthentication,)
+  permission_classes = (permissions.IsAuthenticated,)
+  queryset = Railway.objects.all()
+  serializer_class = RailwaySerializer
+
+  def get(self, request, *args, **kwargs):
+    return self.retrieve(request, *args, **kwargs)
+
+@api_view(['GET'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def railwayVideoList(request, pk):
+  queryset = Video.objects.prefetch_related('railway').filter(railway=pk)
+  res = []
+  for q in queryset:
+    res.append({'railway-id': q.railway.id, 'video-id': q.id, 'description': q.description, 'url': q.url})
+  return JsonResponse(res, safe=False)
+
+''' VIDEO '''
+
+class videoDetail(mixins.RetrieveModelMixin, generics.GenericAPIView):
+  queryset = Video.objects.all()
+  serializer_class = VideoSerializer
+  authentication_classes = (authentication.TokenAuthentication,)
+  permission_classes = (permissions.IsAuthenticated,)
+
+  def get(self, request, *args, **kwargs):
+    return self.retrieve(request, *args, **kwargs)
+
+
+
 
 class questionList(generics.ListAPIView):
   queryset = Question.objects.all()
@@ -46,17 +78,21 @@ class questionDetail(generics.RetrieveAPIView):
 
 ###### VIDEO
 
-class videoDetail(generics.RetrieveAPIView):
+''' class videoDetail(generics.RetrieveAPIView):
   queryset = Video.objects.all()
   serializer_class = VideoSerializer
   authentication_classes = [authentication.SessionAuthentication]
-  permission_classes = [permissions.IsAuthenticated]
+  permission_classes = [permissions.IsAuthen ticated]'''
 
 class videoList(generics.ListAPIView):
   queryset = Video.objects.all()
   serializer_class = VideoSerializer
-  authentication_classes = [authentication.SessionAuthentication]
-  permission_classes = [permissions.IsAuthenticated]
+  authentication_classes = (authentication.TokenAuthentication,)
+  permission_classes = (permissions.IsAuthenticated,)
+
+  def get(self, request, *args, **kwargs):
+    return self.list(request, *args, **kwargs)
+
 
 @api_view(['GET'])
 @authentication_classes([SessionAuthentication])
@@ -86,19 +122,19 @@ class railwayList(generics.GenericAPIView):
   serializer_class = RailwaySerializer
   authentication_classes = [TokenAuthentication]
   permission_classes = [permissions.IsAuthenticated]
- '''
+'''  '''
 class railwayDetail(generics.RetrieveAPIView):
   queryset = Railway.objects.all()
   serializer_class = RailwaySerializer
-  permission_classes = [permissions.IsAuthenticated]
-
+  permission_classes = [permissions.IsAuthenticated] '''
+'''
 @api_view(['GET'])
 def railwayVideoList(request, pk):
   queryset = Video.objects.prefetch_related('railway').filter(railway=pk)
   res = []
   for q in queryset:
     res.append({'railway-id': q.railway.id, 'video-id': q.id, 'description': q.description, 'url': q.url})
-  return JsonResponse(res, safe=False)
+  return JsonResponse(res, safe=False) '''
 
 
 
