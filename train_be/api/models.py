@@ -29,6 +29,7 @@ class Video(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=150, blank=True, default='')
     url = models.CharField(max_length=150, blank=True, default='')
+    youtubeId = models.CharField(max_length=20, blank=True, default='')
     description = models.CharField(max_length=650, blank=True, default='')
     duration = models.IntegerField(default=1000)
     railway = models.ForeignKey(Railway, on_delete=models.CASCADE, related_name='videoOfRailway')
